@@ -1,1 +1,40 @@
-e
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>π generator</title>
+</head>
+<body>
+    <b>π =</b>
+    <p></p>
+    <script>
+setTimeout(() => {
+function* piGenerator() {
+  let q = 1n, r = 180n, t = 60n, i = 2n;
+  while (true) {
+    let y = (q * (27n * i - 12n) + r) / (5n * t);
+    yield y; // Yield the next digit
+    r = (r - t * y) * 10n;
+    q *= 10n;
+    t *= 10n;
+    i += 1n;
+  }
+}
+
+const generator = piGenerator();
+let piDigits = ""; // To store the digits of π
+
+// Update and calculate a new digit every 10ms
+setInterval(() => {
+  const nextDigit = generator.next().value; // Get the next π digit
+  piDigits += nextDigit; // Append the digit to the string
+  console.log(piDigits); // Display the updated π value
+  document.querySelector("p").innerHTML=piDigits
+}, 10);
+
+})
+
+    </script>
+</body>
+</html>
