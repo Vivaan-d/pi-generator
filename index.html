@@ -9,35 +9,29 @@
     <b>π =</b>
     <p></p>
     <script>function* piGenerator() {
-        let q = 1n, r = 0n, t = 1n, k = 1n, n = 3n, l = 3n;
+        let q = 1n, r = 180n, t = 60n, i = 2n;
         while (true) {
-          if (4n * q + r - t < n * t) {
-            yield n; // Yield the next digit of π
-            let nr = 10n * (r - n * t);
-            n = (10n * (3n * q + r)) / t - 10n * n;
-            q *= 10n;
-            r = nr;
-          } else {
-            let nr = (2n * q + r) * l;
-            let nn = (q * (7n * k + 2n) + r * l) / (t * l);
-            q *= k;
-            t *= l;
-            l += 2n;
-            k += 1n;
-            r = nr;
-            n = nn;
-          }
+          let y = (q * (27n * i - 12n) + r) / (5n * t);
+          yield y; // Yield the next digit
+          r = (r - t * y) * 10n;
+          q *= 10n;
+          t *= 10n;
+          i += 1n;
         }
       }
       
       const generator = piGenerator();
-      let piDigits = "3.";
+      let piDigits = "3."; // Initialize with the correct starting sequence
+      let skipFirstDigit = true; // Skip the first digit (3) if necessary
       
-      // Display digits one by one every 10ms
       setInterval(() => {
         const nextDigit = generator.next().value;
-        piDigits += nextDigit;
-        console.log(piDigits); // Display growing sequence of π digits
+        if (skipFirstDigit) {
+          skipFirstDigit = false; // Skip the initial 3
+          return;
+        }
+        piDigits += nextDigit; // Append the next digit
+        console.log(piDigits); // Display the growing sequence of π digits
         document.querySelector("p").innerHTML=piDigits
       }, 10);
       
