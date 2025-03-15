@@ -35,14 +35,19 @@
       let skipFirstDigit = true; // Skip the first digit (3) if necessary
       
       setInterval(() => {
-        const nextDigit = generator.next().value;
-        if (skipFirstDigit) {
-          skipFirstDigit = false; // Skip the initial 3
-          return;
-        }
-        piDigits += nextDigit; // Append the next digit
-        document.querySelector("p").innerHTML=piDigits
-      }, 10);
+  let batch = 10; // Number of digits to generate per interval
+  let digits = ""; // Store generated digits in a batch
+  while (batch-- > 0) {
+    const nextDigit = generator.next().value;
+    if (skipFirstDigit) {
+      skipFirstDigit = false; // Skip the initial 3
+      continue;
+    }
+    digits += nextDigit;
+  }
+  piDigits += digits; // Append batch of digits
+  document.querySelector("p").innerHTML = piDigits;
+}, 10); // Keeps the interval at 10ms
       
 
     </script>
