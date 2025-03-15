@@ -35,7 +35,7 @@
       let skipFirstDigit = true; // Skip the first digit (3) if necessary
       
       setInterval(() => {
-  let batch = 1; // Number of digits to generate per interval
+  let batch = 3; // Number of digits to generate per interval
   let digits = ""; // Store generated digits in a batch
   while (batch-- > 0) {
     const nextDigit = generator.next().value;
@@ -47,7 +47,7 @@
   }
   piDigits += digits; // Append batch of digits
   document.querySelector("p").innerHTML = piDigits;
-}, 0.1); // Keeps the interval at 10ms
+}, 1); // Keeps the interval at 10ms
       
 
     </script>
